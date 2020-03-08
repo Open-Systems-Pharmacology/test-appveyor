@@ -53,3 +53,18 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
   #Last move new tar file and replace old tar file
  # FileUtils.copy_file(temp_tar_file, tar_file)
 end
+
+def sanitized_version(version) 
+  pull_request_index = version.index('-')
+  return version unless pull_request_index
+  version.slice(0, pull_request_index)
+end
+
+
+def to_linux_path(path, end_slash=false)
+  "#{'/' if path[0]=='\\'}#{path.split('\\').join('/')}#{'/' if end_slash}" 
+end 
+
+def to_win_path(path)
+  path.split('/').join('\\')
+end
