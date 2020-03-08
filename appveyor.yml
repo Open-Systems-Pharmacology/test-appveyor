@@ -6,7 +6,7 @@ install:
 build_script: rake "create_linux_build[9.0.46, %APPVEYOR_BUILD_FOLDER%]"
 
 artifacts:
-  - path: '\*_*.tar.gz'
+  - path: "*.tar.gz"
     name: Linux
 
 skip_commits:
