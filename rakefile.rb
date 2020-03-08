@@ -17,12 +17,12 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
   tar_file = File.join(build_dir, tar_file_name)
 
   #unzip it in a temp folder
-  #temp_dir = File.join(build_dir, "temp")
+  temp_dir = File.join(build_dir, "temp")
 #  FileUtils.mkdir_p temp_dir
-  temp_dir = "C:/temp/"
+#  temp_dir = "C:/temp/"
   FileUtils.mkdir_p temp_dir
 
-  command_line = %W[xvzf #{tar_file} -C #{temp_dir}]
+  command_line = %W[xzf #{tar_file} -C #{temp_dir}]
   Utils.run_cmd('tar', command_line)
 
   puts "Temp Directory exists #{Dir.exists?(temp_dir)}"
