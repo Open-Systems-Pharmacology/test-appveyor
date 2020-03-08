@@ -1,0 +1,18 @@
+image: Visual Studio 2019
+
+build_script: rake "create_linux_build[9.0.46, %APPVEYOR_BUILD_FOLDER%]"
+
+artifacts:
+  - path: '\*_*.tar.gz'
+    name: Linux
+
+skip_commits:
+  files:
+    - "*.md"
+
+skip_branch_with_pr: true
+
+skip_tags: true
+
+pull_requests:
+  do_not_increment_build_number: true
