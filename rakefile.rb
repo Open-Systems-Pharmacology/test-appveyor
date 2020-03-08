@@ -24,8 +24,12 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
 
   command_line = %W[xvzf #{tar_file} -C #{temp_dir}]
   Utils.run_cmd('tar', command_line)
-  
-  command_line = %W[cvzf test.tar.gz  C:/temp/ospsuite/]
+
+  puts "Temp Directory exists #{Dir.exists?(temp_dir)}"
+  puts "OSPSUITE  Directory exists #{Dir.exists?( File.join(temp_dir, "ospsuite"))}"
+
+
+  command_line = %W[cvzf test.tar.gz  #{File.join(temp_dir, "ospsuite"}]
   Utils.run_cmd('tar', command_line)
 
   # ospsuite_dir = File.join(temp_dir,  'ospsuite')
