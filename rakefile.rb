@@ -25,9 +25,6 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
   command_line = %W[xzf #{tar_file} -C #{temp_dir}]
   Utils.run_cmd('tar', command_line)
 
-  command_line = %W[czf #{File.join(build_dir, tar_file_name)}   -C #{temp_dir} ospsuite]
-  Utils.run_cmd('tar', command_line)
-
   ospsuite_dir = File.join(temp_dir,  'ospsuite')
   inst_lib_diir = File.join(ospsuite_dir, 'inst', 'lib')
 
@@ -35,6 +32,9 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
   delete_dll('OSPSuite.FuncParserNative', inst_lib_diir)
   delete_dll('OSPSuite.SimModelNative', inst_lib_diir)
   delete_dll('OSPSuite.SimModelSolver_CVODES', inst_lib_diir)
+
+  command_line = %W[czf #{File.join(build_dir, tar_file_name)}   -C #{temp_dir} ospsuite]
+  Utils.run_cmd('tar', command_line)
 
   #Copy the linux binaries
   # copy_so('OSPSuite.FuncParser', inst_lib_diir)
