@@ -25,17 +25,16 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
   command_line = %W[xzf #{tar_file} -C #{temp_dir}]
   Utils.run_cmd('tar', command_line)
 
-
-   command_line = %W[czf #{File.join(build_dir, "test.tar.gz")}   -C #{temp_dir} ospsuite]
+  command_line = %W[czf #{File.join(build_dir, tar_file_name)}   -C #{temp_dir} ospsuite]
   Utils.run_cmd('tar', command_line)
 
-  # ospsuite_dir = File.join(temp_dir,  'ospsuite')
-  # inst_lib_diir = File.join(ospsuite_dir, 'inst', 'lib')
+  ospsuite_dir = File.join(temp_dir,  'ospsuite')
+  inst_lib_diir = File.join(ospsuite_dir, 'inst', 'lib')
 
   #Remove the windows dll that should be replace by linux binaries
-  # delete_dll('OSPSuite.FuncParserNative', inst_lib_diir)
-  # delete_dll('OSPSuite.SimModelNative', inst_lib_diir)
-  # delete_dll('OSPSuite.SimModelSolver_CVODES', inst_lib_diir)
+  delete_dll('OSPSuite.FuncParserNative', inst_lib_diir)
+  delete_dll('OSPSuite.SimModelNative', inst_lib_diir)
+  delete_dll('OSPSuite.SimModelSolver_CVODES', inst_lib_diir)
 
   #Copy the linux binaries
   # copy_so('OSPSuite.FuncParser', inst_lib_diir)
@@ -53,6 +52,11 @@ task :create_linux_build, [:product_version, :build_dir] do |t, args|
 
   #Last move new tar file and replace old tar file
  # FileUtils.copy_file(temp_tar_file, tar_file)
+end
+
+def delete_dll(file, dir)
+  file_full_path = File.join(dir, "#{file}.dll")
+  File.delete(file_full_path)
 end
 
 def sanitized_version(version) 
